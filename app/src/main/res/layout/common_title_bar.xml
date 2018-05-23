@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 公用状态栏-->
+<android.support.design.widget.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/appBar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="4dp"
+    android:orientation="vertical"
+    android:stateListAnimator="@null"
+    android:theme="@style/AppTheme.AppBarOverlay"
+    tools:targetApi="lollipop">
+
+    <View
+        android:id="@+id/statusBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/status_view_height"
+        android:background="@color/colorPrimaryDark" />
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        app:navigationIcon="@drawable/icon_left"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        app:titleTextColor="@color/colorTitle" />
+
+    <View
+        android:id="@+id/shader"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/shader_height"
+        android:background="@drawable/shadom" />
+
+</android.support.design.widget.AppBarLayout>

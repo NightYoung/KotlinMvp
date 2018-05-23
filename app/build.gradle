@@ -1,0 +1,105 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+//checkStyle检查文件设置
+task checkstylea(type: Checkstyle) {
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+    exclude '**/R.java'
+    exclude '**/BuildConfig.java'
+    exclude "**/entity/**"
+    configFile new File(rootDir, "checkstyle.xml")
+    // empty classpath
+    classpath = files()
+}
+
+//签名文件
+File signPropertiesFile = rootProject.file('sign/keystore.properties')
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+
+    defaultConfig {
+        applicationId "com.vince.easyprint"
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    //签名配置
+    if (signPropertiesFile.exists()) {
+        Properties properties = new Properties()
+        properties.load(new FileInputStream(signPropertiesFile))
+        signingConfigs {
+            release {
+                storeFile rootProject.file(properties['keystore'])
+                storePassword properties['storePassword']
+                keyAlias properties['keyAlias']
+                keyPassword properties['keyPassword']
+            }
+        }
+    }
+
+    //指定Java编译版本
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation project(':library')
+    implementation project(':swipeback')
+
+    //测试
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    //兼容包
+    implementation Extra.appCompat
+    implementation Extra.v4
+    implementation Extra.cardView
+    implementation Extra.recyclerView
+    implementation Extra.design
+    implementation Extra.fragment
+
+    //约束布局
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+
+    //Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.3.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
+    //RxAndroid
+    implementation 'io.reactivex:rxandroid:1.2.1'
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:4.3.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.3.1'
+    //网络请求和数据库调试工具
+    implementation 'com.facebook.stetho:stetho:1.5.0'
+    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
+    //Adapter适配器
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
+    //TableLayout
+    implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+    //下拉刷新库
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.3'
+    //状态栏变色
+    implementation 'com.jaeger.statusbarutil:library:1.5.1'
+}

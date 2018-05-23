@@ -1,0 +1,70 @@
+<resources>
+
+    <!-- 主题样式-->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+    <!--触摸背景样式-->
+    <style name="WhiteRippleBackground">
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:background">@drawable/white_ripple</item>
+    </style>
+
+    <style name="GreenRippleBackground">
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:background">@drawable/green_ripple</item>
+    </style>
+
+    <style name="BackGroundRippleBackground">
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:background">@drawable/background_ripple_mark</item>
+    </style>
+
+    <style name="TitleRippleBackground">
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:background">@drawable/title_ripple</item>
+    </style>
+
+
+    <!--   控件布局样式-->
+    <style name="CommonTextLayoutError">
+        <item name="android:textColor">@color/colorFail</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="CommonTextLayout">
+        <item name="errorTextAppearance">@style/CommonTextLayoutError</item>
+        <item name="android:textColorHint">@color/colorIcon</item>>
+    </style>
+
+    <style name="CommonClearableEditText">
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="CommonClickTextView">
+        <item name="android:textColor">@drawable/green_text_selector</item>
+        <item name="android:textSize">@dimen/sp_14</item>
+    </style>
+
+    <style name="CommonButton" parent="@style/Widget.AppCompat.Button.Colored">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+</resources>

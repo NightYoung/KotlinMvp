@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#EEEEEE</color>
+    <color name="colorPrimaryDark">#C5C5C5</color>
+    <color name="colorAccent">#24c875</color>
+
+    <color name="colorSuccess">#00cd66</color>
+    <color name="colorDarkGreen">#1CA05E</color>
+    <color name="colorWarn">#ff9900</color>
+    <color name="colorFail">#ff8237</color>
+    <color name="colorBorder">#B7C8D0</color>
+    <color name="colorDividing">#e9eef1</color>
+    <color name="colorIcon">#8899a9</color>
+    <color name="colorTitle">#282c37</color>
+    <color name="colorContent">@color/colorIcon</color>
+    <color name="colorDisable">#b7c8d0</color>
+    <color name="colorBackground">#f2f5f9</color>
+    <color name="colorGray">#8899a9</color>
+    <color name="colorUnusual">#ffb236</color>
+    <color name="colorAccentUnable">#b0ddc6</color>
+    <color name="colorBlack">@color/colorTitle</color>
+    <color name="colorTransparent">#00000000</color>
+    <color name="colorWhite">#feffff</color>
+    <color name="colorWhitePure">#ffffff</color>
+    <color name="colorRipple">#aaa</color>
+    <color name="colorModuleText">#333742</color>
+    <color name="colorTabItem">#8899a9</color>
+    <color name="colorTitleBackground">#f0f0f0</color>
+
+</resources>
