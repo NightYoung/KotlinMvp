@@ -7,7 +7,6 @@ import com.vince.easyprint.R
 import com.vince.easyprint.base.activity.BaseActivity
 import com.vince.easyprint.constant.Constants.FIRST_OPEN
 import com.vince.easyprint.constant.PageRoute
-import com.vince.easyprint.ui.MainActivity
 import com.vince.easyprint.ui.login.LoginActivity
 import com.vince.library.utils.SpUtil
 import kotlinx.android.synthetic.main.activity_flash.*
@@ -46,11 +45,12 @@ class FlashActivity : BaseActivity() {
             PageRoute.to(mActivity, LoginActivity::class.java)
         } else {
             flFlash.animate()
-                    .alpha(1f)
-                    .setDuration(500)
-                    .withEndAction({
-                        PageRoute.to(mActivity, LoginActivity::class.java)
-                    })
+                .alpha(1f)
+                .setDuration(500)
+                .withEndAction {
+                    PageRoute.to(mActivity, LoginActivity::class.java)
+                    finish()
+                }
         }
     }
 

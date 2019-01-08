@@ -1,6 +1,5 @@
 package com.vince.easyprint.ui.login
 
-import android.os.Bundle
 import com.vince.easyprint.R
 import com.vince.easyprint.base.activity.BaseActivity
 
