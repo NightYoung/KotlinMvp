@@ -2,7 +2,13 @@ package com.vince.easyprint.net
 
 import android.text.TextUtils
 import com.vince.easyprint.constant.Constants.POST
-import okhttp3.*
+import okhttp3.FormBody
+import okhttp3.HttpUrl
+import okhttp3.Interceptor
+import okhttp3.MultipartBody
+import okhttp3.Request
+import okhttp3.RequestBody
+import okhttp3.Response
 import okio.Buffer
 
 /**
@@ -78,8 +84,10 @@ class ParamsInterceptor : Interceptor {
     }
 
     /*** 添加请求参数到URL中*/
-    private fun injectParamsIntoUrl(newBuilder: HttpUrl.Builder, requestBuilder: Request.Builder,
-                                    paramsMap: MutableMap<String, String>): Request {
+    private fun injectParamsIntoUrl(
+        newBuilder: HttpUrl.Builder, requestBuilder: Request.Builder,
+        paramsMap: MutableMap<String, String>
+    ): Request {
         if (paramsMap.isNotEmpty()) {
             paramsMap.entries.forEach {
                 newBuilder.addQueryParameter(it.key, it.value)

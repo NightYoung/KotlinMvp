@@ -1,8 +1,9 @@
 package com.vince.easyprint.net
 
-import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.vince.easyprint.BuildConfig
 import com.vince.easyprint.constant.Constants
+import com.vince.library.utils.JsonUtil
+import com.vince.library.utils.LogUtil
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -32,12 +33,12 @@ object HttpManager {
         mHttpClient = getHttpClient()
 
         mRetrofit = Retrofit.Builder()
-                .baseUrl(ApiStore.baseUrl)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addConverterFactory(ScalarsConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .client(mHttpClient)
-                .build()
+            .baseUrl(ApiStore.baseUrl)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+            .client(mHttpClient)
+            .build()
 
         return mRetrofit
     }
@@ -47,10 +48,11 @@ object HttpManager {
         val builder = OkHttpClient.Builder()
 
         val interceptor = ParamsInterceptor.Builder()
-                .addHeaderParamsMap(addHeader())
-                .addParamsMap(addBody())
-                .build()
+            .addHeaderParamsMap(addHeader())
+            .addParamsMap(addBody())
+            .build()
         builder.addInterceptor(interceptor)
+        builder.addNetworkInterceptor(interceptor)
 
         // Log信息拦截器
         if (BuildConfig.DEBUG) {
@@ -68,8 +70,10 @@ object HttpManager {
         //错误重连
         builder.retryOnConnectionFailure(true)
         return if (BuildConfig.DEBUG) {
-            builder.addNetworkInterceptor(StethoInterceptor())
-                    .build()
+            val logInterceptor = HttpLoggingInterceptor(HttpLogger())
+            logInterceptor.level = HttpLoggingInterceptor.Level.BODY
+            builder.addNetworkInterceptor(logInterceptor)
+                .build()
         } else {
             builder.build()
         }
@@ -99,5 +103,29 @@ object HttpManager {
         }
 
         return property
+    }
+}
+
+
+private class HttpLogger : HttpLoggingInterceptor.Logger {
+    private val mMessage = StringBuilder()
+
+    override fun log(msg: String) {
+        var message = msg
+        // 请求或者响应开始
+        if (message.startsWith("--> POST")) {
+            mMessage.setLength(0)
+        }
+        // 以{}或者[]形式的说明是响应结果的json数据，需要进行格式化
+        if (message.startsWith("{") && message.endsWith("}")
+            || message.startsWith("[") && message.endsWith("]")
+        ) {
+            message = JsonUtil.formatJson(message)
+        }
+        mMessage.append(message + "\n")
+        // 请求或者响应结束，打印整条日志
+        if (message.startsWith("<-- END HTTP")) {
+            LogUtil.d(mMessage.toString())
+        }
     }
 }

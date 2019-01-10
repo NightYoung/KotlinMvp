@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.layout_fragment_news_list.*
  * <p>描述：新闻列表页
  */
 class NewsFragment : MvpLazyFragment<NewsPresenter>(),
-        OnRefreshLoadmoreListener, NewsContract.View {
+    OnRefreshLoadmoreListener, NewsContract.View {
     private var page = 1
     private var sortBy = "popularity.desc"
 
@@ -48,9 +48,7 @@ class NewsFragment : MvpLazyFragment<NewsPresenter>(),
         srlNewsList.setOnRefreshLoadmoreListener(this)
     }
 
-    override fun showLoading() {
-
-    }
+    override fun showLoading() {}
 
     override fun hideLoading() {
         srlNewsList.finishRefresh(true)

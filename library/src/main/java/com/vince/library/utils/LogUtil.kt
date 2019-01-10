@@ -11,7 +11,7 @@ import com.orhanobut.logger.PrettyFormatStrategy
  * <p>描述： Logger的二次封装
  */
 object LogUtil {
-    private const val TAG = "<<<Vince"
+    private const val TAG = "<<<Night"
 
     fun init(openLog: Boolean) {
         val formatStrategy = PrettyFormatStrategy.newBuilder()
