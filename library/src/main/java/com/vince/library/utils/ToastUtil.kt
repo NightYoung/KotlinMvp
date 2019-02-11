@@ -57,9 +57,9 @@ object ToastUtil {
         if (mToast == null) {
             mToast = Toast.makeText(mContext, text, duration)
         } else {
-            mToast!!.setText(text)
+            mToast?.setText(text)
         }
-        mToast!!.show()
+        mToast?.show()
     }
 
     @SuppressLint("ShowToast")
@@ -67,8 +67,8 @@ object ToastUtil {
         if (mToast == null) {
             mToast = Toast.makeText(mContext, resId, duration)
         } else {
-            mToast!!.setText(resId)
+            mToast?.setText(resId)
         }
-        mToast!!.show()
+        mToast?.show()
     }
 }

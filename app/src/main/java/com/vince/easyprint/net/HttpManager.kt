@@ -33,12 +33,12 @@ object HttpManager {
         mHttpClient = getHttpClient()
 
         mRetrofit = Retrofit.Builder()
-            .baseUrl(ApiStore.baseUrl)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addConverterFactory(ScalarsConverterFactory.create())
-            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-            .client(mHttpClient)
-            .build()
+                .baseUrl(ApiStore.baseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .client(mHttpClient)
+                .build()
 
         return mRetrofit
     }
@@ -48,19 +48,11 @@ object HttpManager {
         val builder = OkHttpClient.Builder()
 
         val interceptor = ParamsInterceptor.Builder()
-            .addHeaderParamsMap(addHeader())
-            .addParamsMap(addBody())
-            .build()
+                .addHeaderParamsMap(addHeader())
+                .addParamsMap(addBody())
+                .build()
         builder.addInterceptor(interceptor)
         builder.addNetworkInterceptor(interceptor)
-
-        // Log信息拦截器
-        if (BuildConfig.DEBUG) {
-            val loggingInterceptor = HttpLoggingInterceptor()
-            loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-            //设置 Debug Log 模式
-            builder.addInterceptor(loggingInterceptor)
-        }
 
         //设置超时和重连
         builder.connectTimeout(connectTimeOut, TimeUnit.SECONDS)
@@ -73,7 +65,7 @@ object HttpManager {
             val logInterceptor = HttpLoggingInterceptor(HttpLogger())
             logInterceptor.level = HttpLoggingInterceptor.Level.BODY
             builder.addNetworkInterceptor(logInterceptor)
-                .build()
+                    .build()
         } else {
             builder.build()
         }
@@ -118,7 +110,7 @@ private class HttpLogger : HttpLoggingInterceptor.Logger {
         }
         // 以{}或者[]形式的说明是响应结果的json数据，需要进行格式化
         if (message.startsWith("{") && message.endsWith("}")
-            || message.startsWith("[") && message.endsWith("]")
+                || message.startsWith("[") && message.endsWith("]")
         ) {
             message = JsonUtil.formatJson(message)
         }

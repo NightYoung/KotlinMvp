@@ -1,4 +1,4 @@
-package com.vince.easyprint.base
+package com.vince.easyprint.base.activity
 
 import android.annotation.SuppressLint
 import android.os.Bundle

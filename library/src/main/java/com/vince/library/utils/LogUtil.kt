@@ -15,9 +15,9 @@ object LogUtil {
 
     fun init(openLog: Boolean) {
         val formatStrategy = PrettyFormatStrategy.newBuilder()
-                .showThreadInfo(true)
-                .tag(TAG)
-                .build()
+            .showThreadInfo(true)
+            .tag(TAG)
+            .build()
 
         Logger.addLogAdapter(object : AndroidLogAdapter(formatStrategy) {
             override fun isLoggable(priority: Int, tag: String?): Boolean {

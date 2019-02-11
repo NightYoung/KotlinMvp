@@ -3,12 +3,10 @@ package com.vince.easyprint.ui.news
 import android.app.Activity
 import android.content.Intent
 import android.graphics.drawable.Drawable
-import android.view.MenuItem
 import com.jaeger.library.StatusBarUtil
 import com.vince.easyprint.R
 import com.vince.easyprint.base.activity.BaseActivity
 import com.vince.easyprint.entity.DataClass
-import com.vince.library.utils.LogUtil
 import com.vince.library.utils.ToastUtil
 import kotlinx.android.synthetic.main.activity_item_detail.*
 import java.net.URL
