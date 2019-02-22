@@ -11,10 +11,10 @@ import com.vince.easyprint.base.BasePresenter
  * <p>描述：带网络请求的Fragment
  */
 abstract class MvpFragment<P : BasePresenter<*>> : BaseFragment() {
-    protected lateinit var mvpPresenter: P
+    lateinit var mPresenter: P
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        mvpPresenter = createPresenter()
+        mPresenter = createPresenter()
 
         super.onViewCreated(view, savedInstanceState)
     }
@@ -27,6 +27,6 @@ abstract class MvpFragment<P : BasePresenter<*>> : BaseFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
 
-        mvpPresenter.detachView()
+        mPresenter.detachView()
     }
 }

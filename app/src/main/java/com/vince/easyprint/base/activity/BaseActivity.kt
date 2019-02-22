@@ -77,7 +77,9 @@ abstract class BaseActivity : SwipeBackActivity() {
     private fun hideStatusBar() {
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
             val localLayoutParams = window.attributes
-            localLayoutParams.flags = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags
+            localLayoutParams.flags =
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or
+                            localLayoutParams.flags
         }
     }
 }

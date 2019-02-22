@@ -13,9 +13,9 @@ import rx.subscriptions.CompositeSubscription
  * <p>描述：Presenter基类
  */
 open class BasePresenter<V>(v: V) {
-    protected var mvpView: V? = null
-    protected lateinit var apiStores: ApiStore
-    private var mCompositeSubscription: CompositeSubscription? = null
+    var mvpView: V? = null
+    lateinit var apiStores: ApiStore
+    private val mCompositeSubscription by lazy { CompositeSubscription() }
 
     init {
         attachView(v)
@@ -37,8 +37,8 @@ open class BasePresenter<V>(v: V) {
 
     /*** RxJava取消注册，以避免内存泄露*/
     fun unsubscribe() {
-        if (mCompositeSubscription != null && mCompositeSubscription!!.hasSubscriptions()) {
-            mCompositeSubscription?.unsubscribe()
+        if (mCompositeSubscription.hasSubscriptions()) {
+            mCompositeSubscription.unsubscribe()
         }
     }
 
@@ -47,12 +47,9 @@ open class BasePresenter<V>(v: V) {
      * @param observable 被观察者，会使用到装饰者
      * @param subscriber 观察者   */
     protected fun <T> addSubscription(observable: Observable<T>, subscriber: Subscriber<T>) {
-        if (mCompositeSubscription == null) {
-            mCompositeSubscription = CompositeSubscription()
-        }
         val transformer: Observable.Transformer<T, T> = ObservableTransformer()
         val subscription = observable.compose(transformer).subscribe(subscriber)
-        mCompositeSubscription?.add(subscription)
+        mCompositeSubscription.add(subscription)
     }
 }
 

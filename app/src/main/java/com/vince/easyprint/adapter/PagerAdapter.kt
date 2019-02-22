@@ -10,10 +10,10 @@ import android.support.v4.app.FragmentPagerAdapter
  * <p>作用：
  * <p>描述：ViewPager适配器
  */
-class PagerAdapter(manager: FragmentManager?) : FragmentPagerAdapter(manager) {
+class PagerAdapter(manager: FragmentManager) : FragmentPagerAdapter(manager) {
     private var dataList = mutableListOf<Fragment>()
 
-    constructor(manager: FragmentManager?, dataList: MutableList<Fragment>) : this(manager) {
+    constructor(manager: FragmentManager, dataList: MutableList<Fragment>) : this(manager) {
         this.dataList = dataList
     }
 

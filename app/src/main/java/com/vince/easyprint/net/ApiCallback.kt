@@ -2,6 +2,11 @@ package com.vince.easyprint.net
 
 import android.os.Looper
 import android.text.TextUtils
+import com.vince.easyprint.constant.Constants.HTTP_200
+import com.vince.easyprint.constant.Constants.HTTP_404
+import com.vince.easyprint.constant.Constants.HTTP_500
+import com.vince.easyprint.constant.Constants.HTTP_502
+import com.vince.easyprint.constant.Constants.HTTP_503
 import com.vince.easyprint.constant.Constants.HTTP_EXCEPTION
 import com.vince.easyprint.constant.Constants.UNKOWN_EXCEPTION
 import com.vince.library.utils.LogUtil
@@ -20,7 +25,7 @@ import java.util.*
  */
 abstract class ApiCallback<M> : Subscriber<M>() {
     /*** 自定义忽略错误(在这里添加   定义一个类，定义各种错误码，然后将不需要处理的错误码添加在这个集合里)*/
-    private val mIgnoreArray = arrayOf(200L,500L,404L,502L)
+    private val mIgnore = arrayOf(HTTP_200, HTTP_500, HTTP_404, HTTP_502)
 
     /*** 请求成功
      ** @param model 消费类型 */
@@ -29,7 +34,7 @@ abstract class ApiCallback<M> : Subscriber<M>() {
     /*** 请求失败
      * @param code 状态码
      * @param msg  信息  */
-    abstract fun onFailure(code: Long, msg: String?)
+    abstract fun onFailure(code: Long, msg: String = "")
 
     /*** 无论是成功还是失败都会Finish*/
     abstract fun onFinish()
@@ -39,40 +44,40 @@ abstract class ApiCallback<M> : Subscriber<M>() {
     }
 
     override fun onError(e: Throwable) {
-        when (e) {
+        val msg = e.message ?: ""
 
+        when (e) {
             //网络错误
             is HttpException -> {
                 val code = e.code().toLong()
-                val msg = e.message
-                if (code == 404L || code == 500L || code == 503L) {
+
+                if (code == HTTP_404 || code == HTTP_500 || code == HTTP_503) {
                     //无法连接到服务器的集中处理
                     toastException(code, msg)
-                    cannotConnectToService(msg)
+                    cannotConnectToService(code, msg)
                 }
-                onFailure(code, msg!!)
+                onFailure(code, msg)
             }
 
             //自定义错误
-            is ApiException ->{
-                val code = e.code()
-                val msg = e.msg()
+            is ApiException -> {
+                val code = e.code
 
-                if (e.loginOverDue()){
-                    toastException(code,msg)
+                if (e.loginOverDue()) {
+                    toastException(code, msg)
                     LogUtil.d("登录过期,请重新登录")
                 }
             }
 
             //连接超时，无法解析地址
             is UnknownHostException, is SocketTimeoutException -> {
-                cannotConnectToService(e.message)
-                onFailure(HTTP_EXCEPTION, e.message)
+                cannotConnectToService(HTTP_EXCEPTION, msg)
+                onFailure(HTTP_EXCEPTION, msg)
             }
 
             else -> {
-                toastException(0,e.message)
-                onFailure(UNKOWN_EXCEPTION, "")
+                toastException(0, e.message ?: msg)
+                onFailure(UNKOWN_EXCEPTION, msg)
             }
         }
 
@@ -84,24 +89,25 @@ abstract class ApiCallback<M> : Subscriber<M>() {
     }
 
     /*** 无法连接到服务器的处理*/
-    private fun cannotConnectToService(msg: String?) {
+    private fun cannotConnectToService(code: Long, msg: String) {
 
         //doSomething
+        toastException(code, msg)
     }
 
-    private fun toastException(code: Long,  msg: String?){
+    private fun toastException(code: Long, msg: String) {
         if (Looper.myLooper() == null || needToast(code)) {
             return
         }
 
         if (!TextUtils.isEmpty(msg)) {
-            ToastUtil.showShort(msg!!)
+            ToastUtil.showShort(msg)
         }
     }
 
-    private fun needToast(code: Long?): Boolean {
+    private fun needToast(code: Long): Boolean {
 
-        return Arrays.asList(*mIgnoreArray).contains(code)
+        return Arrays.asList(*mIgnore).contains(code)
     }
 
 }

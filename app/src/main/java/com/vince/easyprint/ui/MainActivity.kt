@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_main.*
  * <p>描述：新闻列表页
  */
 class MainActivity : BaseActivity(), OnTabSelectListener,
-    ViewPager.OnPageChangeListener {
+        ViewPager.OnPageChangeListener {
     /** fragment集合*/
     private var dataList: MutableList<Fragment> = mutableListOf()
     /** table集合*/
@@ -27,15 +27,15 @@ class MainActivity : BaseActivity(), OnTabSelectListener,
 
     /** 选择的icon*/
     private val mSelectIcon = listOf(
-        R.drawable.news_select,
-        R.drawable.constellation_select,
-        R.drawable.joke_select
+            R.drawable.news_select,
+            R.drawable.constellation_select,
+            R.drawable.joke_select
     )
     /** 未选中的icon*/
     private val mUnSelectIcon = listOf(
-        R.drawable.news,
-        R.drawable.constellation,
-        R.drawable.joke
+            R.drawable.news,
+            R.drawable.constellation,
+            R.drawable.joke
     )
     /** table的标题*/
     private lateinit var mTitles: List<String>
@@ -44,9 +44,9 @@ class MainActivity : BaseActivity(), OnTabSelectListener,
 
     override fun initVariables() {
         mTitles = listOf(
-            getString(R.string.news),
-            getString(R.string.movie),
-            getString(R.string.joke)
+                getString(R.string.news),
+                getString(R.string.movie),
+                getString(R.string.joke)
         )
 
         mTitles.forEachIndexed { index, _ ->

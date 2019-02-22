@@ -45,12 +45,12 @@ class FlashActivity : BaseActivity() {
             PageRoute.to(mActivity, LoginActivity::class.java)
         } else {
             flFlash.animate()
-                .alpha(1f)
-                .setDuration(500)
-                .withEndAction {
-                    PageRoute.to(mActivity, LoginActivity::class.java)
-                    finish()
-                }
+                    .alpha(1f)
+                    .setDuration(500)
+                    .withEndAction {
+                        PageRoute.to(mActivity, LoginActivity::class.java)
+                        finish()
+                    }
         }
     }
 

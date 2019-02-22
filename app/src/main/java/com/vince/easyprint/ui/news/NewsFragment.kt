@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.layout_fragment_news_list.*
  * <p>描述：新闻列表页
  */
 class NewsFragment : MvpLazyFragment<NewsPresenter>(),
-    OnRefreshLoadmoreListener, NewsContract.View {
+        OnRefreshLoadmoreListener, NewsContract.View {
     private var page = 1
     private var sortBy = "popularity.desc"
 
@@ -38,7 +38,7 @@ class NewsFragment : MvpLazyFragment<NewsPresenter>(),
         mContent = arguments?.getString(CONTENT) ?: mContent
     }
 
-    override fun initViews(v: View) {
+    override fun initViews(view: View) {
         rvNews.layoutManager = LinearLayoutManager(mActivity)
         rvNews.adapter = mAdapter
         mAdapter.isFirstOnly(true)
@@ -57,7 +57,7 @@ class NewsFragment : MvpLazyFragment<NewsPresenter>(),
 
     override fun loadData() {
 
-        mvpPresenter.requestNewsData(sortBy, page)
+        mPresenter.requestNewsData(sortBy, page)
     }
 
     override fun onGetNewsDataSuccess(source: DataClass.DataSource) {
@@ -69,9 +69,9 @@ class NewsFragment : MvpLazyFragment<NewsPresenter>(),
         mAdapter.notifyDataSetChanged()
     }
 
-    override fun onGetNewsDataFailed(code: Long, msg: String?) {
+    override fun onGetNewsDataFailed(code: Long, msg: String) {
         LogUtil.d(code)
-        msg?.let { ToastUtil.showShort(it) }
+        msg.let { ToastUtil.showShort(it) }
     }
 
     override fun onLoadmore(refreshlayout: RefreshLayout?) {

@@ -12,11 +12,10 @@ import com.vince.easyprint.entity.DataClass
  * <p>描述：KotlinMvp
  */
 class MusicAdapter(data: MutableList<DataClass.Movie>) :
-    BaseQuickAdapter<DataClass.Movie, BaseViewHolder>(R.layout.news_item, data) {
+        BaseQuickAdapter<DataClass.Movie, BaseViewHolder>(R.layout.news_item, data) {
 
 
-    override fun convert(helper: BaseViewHolder?, item: DataClass.Movie?) {
-
+    override fun convert(helper: BaseViewHolder?, item: DataClass.Movie) {
 
 
     }

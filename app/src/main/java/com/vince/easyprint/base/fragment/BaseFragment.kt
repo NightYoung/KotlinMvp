@@ -15,7 +15,7 @@ import android.view.ViewGroup
  * <p>描述：基类Fragment
  */
 abstract class BaseFragment : Fragment() {
-    protected lateinit var mActivity: Activity
+    lateinit var mActivity: Activity
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)

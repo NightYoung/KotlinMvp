@@ -27,7 +27,7 @@ class NewsPresenter(view: NewsContract.View) : BasePresenter<NewsContract.View>(
                 mvpView?.onGetNewsDataSuccess(model)
             }
 
-            override fun onFailure(code: Long, msg: String?) {
+            override fun onFailure(code: Long, msg: String) {
 
                 mvpView?.onGetNewsDataFailed(code, msg)
             }

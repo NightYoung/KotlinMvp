@@ -19,7 +19,7 @@ abstract class BaseLazyFragment : Fragment() {
     private var isViewCreated = false
     /*** 是否加载过数据*/
     private var isDataLoad = false
-    protected lateinit var mActivity: Activity
+    lateinit var mActivity: Activity
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)

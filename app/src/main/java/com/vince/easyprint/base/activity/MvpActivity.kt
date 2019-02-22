@@ -10,10 +10,10 @@ import com.vince.easyprint.base.BasePresenter
  * <p>描述：带网络请求的Activity
  */
 abstract class MvpActivity<P : BasePresenter<*>> : BaseActivity() {
-    protected lateinit var mvpPresenter: P
+    lateinit var mPresenter: P
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        mvpPresenter = createPresenter()
+        mPresenter = createPresenter()
 
         super.onCreate(savedInstanceState)
     }
@@ -26,14 +26,13 @@ abstract class MvpActivity<P : BasePresenter<*>> : BaseActivity() {
     override fun onDestroy() {
         super.onDestroy()
 
-        mvpPresenter.detachView()
+        mPresenter.detachView()
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
 
-        mvpPresenter.unsubscribe()
+        mPresenter.unsubscribe()
     }
-
 
 }

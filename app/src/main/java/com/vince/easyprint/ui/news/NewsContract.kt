@@ -16,7 +16,7 @@ interface NewsContract {
         fun onGetNewsDataSuccess(source: DataClass.DataSource)
 
         /*** 获取数据失败*/
-        fun onGetNewsDataFailed(code: Long, msg: String?)
+        fun onGetNewsDataFailed(code: Long, msg: String)
     }
 
     interface Presenter {
